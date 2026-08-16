@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0b1220;
+    color: white;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111827;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-weight: bold;
+    background: #16a34a;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.market {
+    font-size: 14px;
+}
+
+.status {
+    color: #22c55e;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #1f2937;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.big {
+    grid-column: span 3;
+}
+
+.title {
+    color: #9ca3af;
+}
+
+.value {
+    font-size: 28px;
+    margin-top: 10px;
+}
+
+.signal {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.green { color: #22c55e; }
+.red { color: #ef4444; }
+.yellow { color: #eab308; }

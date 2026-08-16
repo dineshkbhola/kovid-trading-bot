@@ -1,10 +1,7 @@
 {
-    "nifty": 25006,
-    "signal": "BUY PE",
-    "entry": 195,
-    "current": 204,
-    "target": 215,
-    "stoploss": 175,
-    "pnl": 1350,
-    "status": "EXECUTED"
+    "nifty": 25087,
+    "atm": 25000,
+    "ce": 111,
+    "pe": 138,
+    "signal": "BUY CE"
 }

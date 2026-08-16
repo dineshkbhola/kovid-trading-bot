@@ -1,37 +1,145 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>KovidTradingBot Dashboard</title>
-    <script>
-        async function fetchData() {
-            try {
-                const res = await fetch("/data");
-                const data = await res.json();
-
-                document.getElementById("nifty").innerText = data.nifty || "-";
-                document.getElementById("ce").innerText = data.ce || "-";
-                document.getElementById("pe").innerText = data.pe || "-";
-                document.getElementById("signal").innerText = data.signal || "-";
-            } catch (e) {
-                console.log("Error fetching data", e);
-            }
+    <title>Kovid Trading Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #0b0f19;
+            color: white;
         }
 
-        setInterval(fetchData, 2000);
-    </script>
+        /* TOP RIBBON */
+        .ribbon {
+            display: flex;
+            overflow-x: auto;
+            background: #111827;
+            padding: 10px;
+        }
+
+        .ribbon-item {
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* CARDS */
+        .card {
+            background: #1f2937;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .value {
+            font-size: 24px;
+            margin-top: 5px;
+        }
+
+        .signal {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .buy {
+            color: #00ff9f;
+        }
+
+        .sell {
+            color: #ff4d4d;
+        }
+
+        .wait {
+            color: yellow;
+        }
+
+    </style>
 </head>
 
-<body style="font-family: Arial; background: #111; color: white; text-align:center;">
+<body>
 
-    <h1>🚀 Kovid Trading Bot</h1>
+    <!-- TOP RIBBON -->
+    <div class="ribbon">
+        <div class="ribbon-item">NIFTY: <span id="nifty_ribbon">--</span></div>
+        <div class="ribbon-item">BANKNIFTY: --</div>
+        <div class="ribbon-item">FINNIFTY: --</div>
+        <div class="ribbon-item">VIX: --</div>
+        <div class="ribbon-item">GIFT NIFTY: --</div>
+    </div>
 
-    <h2>NIFTY: <span id="nifty">-</span></h2>
-    <h2>CE Price: <span id="ce">-</span></h2>
-    <h2>PE Price: <span id="pe">-</span></h2>
+    <div class="container">
 
-    <h1 style="margin-top:30px;">
-        SIGNAL: <span id="signal" style="color:yellow;">-</span>
-    </h1>
+        <div class="title">🚀 Kovid Trading Bot</div>
+
+        <div class="card">
+            NIFTY
+            <div id="nifty" class="value">--</div>
+        </div>
+
+        <div class="card">
+            CE Price
+            <div id="ce" class="value">--</div>
+        </div>
+
+        <div class="card">
+            PE Price
+            <div id="pe" class="value">--</div>
+        </div>
+
+        <div class="card">
+            SIGNAL
+            <div id="signal" class="signal wait">WAIT</div>
+        </div>
+
+    </div>
+
+<script>
+function updateData() {
+    fetch('/data')
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById('nifty').innerText = data.nifty;
+            document.getElementById('ce').innerText = data.ce;
+            document.getElementById('pe').innerText = data.pe;
+            document.getElementById('nifty_ribbon').innerText = data.nifty;
+
+            let signal = data.signal;
+            let el = document.getElementById('signal');
+
+            el.innerText = signal;
+
+            el.className = "signal";
+
+            if(signal.includes("BUY")) {
+                el.classList.add("buy");
+            } else if(signal.includes("SELL")) {
+                el.classList.add("sell");
+            } else {
+                el.classList.add("wait");
+            }
+
+        });
+}
+
+setInterval(updateData, 2000);
+updateData();
+</script>
 
 </body>
 </html>

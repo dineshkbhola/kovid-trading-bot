@@ -2,144 +2,130 @@
 <html>
 <head>
     <title>Kovid Trading Bot</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <style>
         body {
             margin: 0;
             font-family: Arial;
-            background: #0b0f19;
+            background: #0b1220;
             color: white;
         }
 
-        /* TOP RIBBON */
-        .ribbon {
-            display: flex;
-            overflow-x: auto;
+        .topbar {
             background: #111827;
-            padding: 10px;
-        }
-
-        .ribbon-item {
-            margin-right: 20px;
+            padding: 10px 20px;
             font-size: 14px;
+            display: flex;
+            gap: 20px;
         }
 
-        /* MAIN CONTAINER */
         .container {
             padding: 20px;
+        }
+
+        h1 {
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #1f2937;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
         }
 
         .title {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        /* CARDS */
-        .card {
-            background: #1f2937;
-            margin: 10px auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
+            font-size: 14px;
+            color: #9ca3af;
         }
 
         .value {
-            font-size: 24px;
-            margin-top: 5px;
+            font-size: 28px;
+            margin-top: 10px;
         }
 
         .signal {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
         }
 
-        .buy {
-            color: #00ff9f;
-        }
+        .buy { color: #22c55e; }
+        .sell { color: #ef4444; }
+        .wait { color: #eab308; }
 
-        .sell {
-            color: #ff4d4d;
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
         }
-
-        .wait {
-            color: yellow;
-        }
-
     </style>
 </head>
 
 <body>
 
-    <!-- TOP RIBBON -->
-    <div class="ribbon">
-        <div class="ribbon-item">NIFTY: <span id="nifty_ribbon">--</span></div>
-        <div class="ribbon-item">BANKNIFTY: --</div>
-        <div class="ribbon-item">FINNIFTY: --</div>
-        <div class="ribbon-item">VIX: --</div>
-        <div class="ribbon-item">GIFT NIFTY: --</div>
+<div class="topbar">
+    NIFTY: {{ data.nifty }}
+    CE: {{ data.ce }}
+    PE: {{ data.pe }}
+</div>
+
+<div class="container">
+
+    <h1>🚀 Kovid Trading Bot</h1>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="title">NIFTY</div>
+            <div class="value">{{ data.nifty }}</div>
+        </div>
+
+        <div class="card">
+            <div class="title">CE PRICE</div>
+            <div class="value">{{ data.ce }}</div>
+        </div>
+
+        <div class="card">
+            <div class="title">PE PRICE</div>
+            <div class="value">{{ data.pe }}</div>
+        </div>
+
+        <div class="card">
+            <div class="title">SIGNAL</div>
+            <div class="signal 
+                {% if data.signal == 'BUY' %}buy
+                {% elif data.signal == 'SELL' %}sell
+                {% else %}wait{% endif %}">
+                {{ data.signal }}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="title">ATM STRIKE</div>
+            <div class="value">{{ data.atm }}</div>
+        </div>
+
+        <div class="card">
+            <div class="title">STATUS</div>
+            <div class="value">ACTIVE</div>
+        </div>
+
     </div>
 
-    <div class="container">
-
-        <div class="title">🚀 Kovid Trading Bot</div>
-
-        <div class="card">
-            NIFTY
-            <div id="nifty" class="value">--</div>
-        </div>
-
-        <div class="card">
-            CE Price
-            <div id="ce" class="value">--</div>
-        </div>
-
-        <div class="card">
-            PE Price
-            <div id="pe" class="value">--</div>
-        </div>
-
-        <div class="card">
-            SIGNAL
-            <div id="signal" class="signal wait">WAIT</div>
-        </div>
-
+    <div class="footer">
+        Last Updated: LIVE
     </div>
 
-<script>
-function updateData() {
-    fetch('/data')
-        .then(res => res.json())
-        .then(data => {
-
-            document.getElementById('nifty').innerText = data.nifty;
-            document.getElementById('ce').innerText = data.ce;
-            document.getElementById('pe').innerText = data.pe;
-            document.getElementById('nifty_ribbon').innerText = data.nifty;
-
-            let signal = data.signal;
-            let el = document.getElementById('signal');
-
-            el.innerText = signal;
-
-            el.className = "signal";
-
-            if(signal.includes("BUY")) {
-                el.classList.add("buy");
-            } else if(signal.includes("SELL")) {
-                el.classList.add("sell");
-            } else {
-                el.classList.add("wait");
-            }
-
-        });
-}
-
-setInterval(updateData, 2000);
-updateData();
-</script>
+</div>
 
 </body>
 </html>

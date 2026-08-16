@@ -1,10 +1,10 @@
 {
-    "nifty": 24979,
-    "signal": "BUY CE",
-    "entry": 205,
-    "current": 209,
-    "target": 225,
-    "stoploss": 185,
-    "pnl": 600,
+    "nifty": 24905,
+    "signal": "BUY PE",
+    "entry": 202,
+    "current": 195,
+    "target": 222,
+    "stoploss": 182,
+    "pnl": -1050,
     "status": "EXECUTED"
 }

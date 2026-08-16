@@ -1,4 +1,4 @@
-from dashboard.app import run_dashboard
+from dashboard.app import app
 
 if __name__ == "__main__":
-    run_dashboard()
+    app.run(host="0.0.0.0", port=5000)

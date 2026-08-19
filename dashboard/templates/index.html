@@ -9,8 +9,8 @@
                 const data = await res.json();
 
                 document.getElementById("nifty").innerText = data.nifty;
-                document.getElementById("ce").innerText = data.ce_price;
-                document.getElementById("pe").innerText = data.pe_price;
+                document.getElementById("ce").innerText = data.ce;
+                document.getElementById("pe").innerText = data.pe;
                 document.getElementById("signal").innerText = data.signal;
                 document.getElementById("status").innerText = data.status;
 

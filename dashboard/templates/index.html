@@ -12,7 +12,7 @@
                 document.getElementById("ce").innerText = data.ce;
                 document.getElementById("pe").innerText = data.pe;
                 document.getElementById("signal").innerText = data.signal;
-                document.getElementById("status").innerText = data.status;
+                document.getElementById("status").innerText = data.status || "ACTIVE";
 
             } catch (e) {
                 console.log("Error fetching data");

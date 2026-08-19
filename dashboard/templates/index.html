@@ -1,67 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>KTB Dashboard</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Kovid Trading Bot</title>
+    <script>
+        async function loadData() {
+            try {
+                const res = await fetch('/data');
+                const data = await res.json();
+
+                document.getElementById("nifty").innerText = data.nifty;
+                document.getElementById("ce").innerText = data.ce_price;
+                document.getElementById("pe").innerText = data.pe_price;
+                document.getElementById("signal").innerText = data.signal;
+                document.getElementById("status").innerText = data.status;
+
+            } catch (e) {
+                console.log("Error fetching data");
+            }
+        }
+
+        // AUTO REFRESH EVERY 3 SECONDS
+        setInterval(loadData, 3000);
+
+        window.onload = loadData;
+    </script>
 </head>
 
-<body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-    <div class="logo">KTB</div>
-
-    <div class="market">
-        NIFTY: <span id="nifty">--</span>
-        CE: <span id="ce">--</span>
-        PE: <span id="pe">--</span>
-    </div>
-
-    <div class="status">LIVE</div>
-</div>
-
-<!-- MAIN -->
-<div class="container">
+<body style="background:#0b1220; color:white; text-align:center; font-family:Arial">
 
     <h1>Kovid Trading Bot</h1>
 
-    <div class="grid">
+    <h2>NIFTY: <span id="nifty">--</span></h2>
+    <h2>CE PRICE: <span id="ce">--</span></h2>
+    <h2>PE PRICE: <span id="pe">--</span></h2>
 
-        <div class="card">
-            <div class="title">NIFTY</div>
-            <div id="nifty_card" class="value">--</div>
-        </div>
-
-        <div class="card">
-            <div class="title">CE PRICE</div>
-            <div id="ce_card" class="value">--</div>
-        </div>
-
-        <div class="card">
-            <div class="title">PE PRICE</div>
-            <div id="pe_card" class="value">--</div>
-        </div>
-
-        <div class="card big">
-            <div class="title">LIVE SIGNAL</div>
-            <div id="signal" class="signal">WAIT</div>
-        </div>
-
-        <div class="card">
-            <div class="title">ATM STRIKE</div>
-            <div id="atm" class="value">--</div>
-        </div>
-
-        <div class="card">
-            <div class="title">STATUS</div>
-            <div class="value green">ACTIVE</div>
-        </div>
-
-    </div>
-
-</div>
-
-<script src="/static/app.js"></script>
+    <h1 style="color:lime;">SIGNAL: <span id="signal">--</span></h1>
+    <h2>STATUS: <span id="status">--</span></h2>
 
 </body>
 </html>
